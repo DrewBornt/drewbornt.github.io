@@ -4,4 +4,6 @@ draft:
 tags:
   - thm
 ---
-Rest of the content here.
+In this write-up, I will discuss how I was able to complete the Kenobi room on TryHackMe.
+
+
