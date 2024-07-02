@@ -12,3 +12,6 @@ At the time of writing this, I am employed as an Incident Response Engineer, whi
 [[Incident Response Recovery]]
 
 [[Useful Pentest Tools and Services]]
+
+
+This website is made possible through Quartz, Github Pages, and Obsidian. If you're interested in starting your own, I recommend [Nicole's Video Here.](https://youtu.be/6s6DT1yN4dw?si=TWKVNrR8i4k-KpfV)
