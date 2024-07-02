@@ -4,6 +4,7 @@ draft:
 tags:
   - thm
   - oscp
+  - easy
 ---
 This room is guided, however, I will still write out my process here. Since I already know the target IP address, I will not be performing Host Discovery. I try to make it a habit with THM and HTB machines to make the target IP an environment variable with `export IP=<target IP>`
 # Port Scanning

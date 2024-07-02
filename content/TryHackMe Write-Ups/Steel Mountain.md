@@ -4,6 +4,7 @@ draft:
 tags:
   - thm
   - oscp
+  - easy
 ---
 No need for host discovery, the room gives us the machine's IP address. First question asks who's the employee of the month? Lets pop the machine's IP into a web browser and see if anything comes up.
 

@@ -4,6 +4,7 @@ draft:
 tags:
   - thm
   - oscp
+  - easy
 ---
 These are rough notes I took while exploiting Kenobi. I am not having this submitted as a write-up to THM. However, I want this here for posterity's sake.
 

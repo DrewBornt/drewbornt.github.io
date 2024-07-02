@@ -4,6 +4,7 @@ draft:
 tags:
   - thm
   - oscp
+  - easy
 ---
 These are some rough notes I took when in the Expose TryHackMe room. These are notes uploaded after the fact and from before my attempting to make detailed write-ups.
 # Port Scanning

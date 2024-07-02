@@ -4,6 +4,7 @@ draft:
 tags:
   - thm
   - oscp
+  - easy
 ---
 Starting anthem is exciting. This is one of the last few *easy* Windows boxes listed for OSCP prep on the list I found on Reddit. I've already passed eJPT so Expose, Alfred, Kenobi, and Steel Mountain have all been something I'm comfortable with doing without relying on others' write-ups. My biggest weakness is not know all of the tools out there available at my disposal. I am going to continue with my current methodology. 
 
