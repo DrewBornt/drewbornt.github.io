@@ -3,8 +3,9 @@ title: Expose
 draft: 
 tags:
   - thm
+  - oscp
 ---
-These are some rough notes I took when in the Expose TryHackMe room. These are note's done after the fact.
+These are some rough notes I took when in the Expose TryHackMe room. These are notes uploaded after the fact and from before my attempting to make detailed write-ups.
 # Port Scanning
 `nmap -p- <IP>`
 
