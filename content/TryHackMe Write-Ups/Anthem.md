@@ -62,7 +62,6 @@ This ends up being the answer to one of the room's questions.
 
 We can also just quickly check if the site has a robot.txt, which it does!
 
-![[AnthemRobots.txt.png]]
 We answer two questions with this, as one is the potential password and the other is the CMS in use.
 
 About this time, the gobuster scan is done.
@@ -139,7 +138,7 @@ The email and the hinted to password in the robots.txt file doesn't work here.
 
 RDP was open on the box, so lets attempt using the credentials to access the box via RDP.
 (My anthem box expired from stepping away for a bit, so had to relaunch it.)
-`xfreerdp /u:sg /p:UmbracoIsTheBest! /v:10.10.143.72`
+`xfreerdp /u:sg /p:<password found previously> /v:10.10.143.72`
 
 And we're in with another flag on the desktop! 
 
