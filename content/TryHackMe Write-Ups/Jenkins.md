@@ -236,6 +236,8 @@ Now instead of impersonating SYSTEM, we *are* SYSTEM.
 Now to just navigate to the flag location and answer the final question.
 I had to drop into a shell due to meterpreter prompt giving funky characters when I tried to `cat` out the file.
 
+It is worth noting that Incognito has its [own standalone exe](https://github.com/FSecureLABS/incognito/blob/394545ffb844afcc18e798737cbd070ff3a4eb29/incognito.exe) (which Windows will flag as a virus if you try downloading it to a Windows host)
+
 ![[JenkinsCompleted.png]]
 
 Thank you for stopping by!
