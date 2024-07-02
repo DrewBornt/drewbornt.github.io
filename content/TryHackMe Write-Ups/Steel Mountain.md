@@ -1,5 +1,5 @@
 ---
-title: Blue Mountain
+title: Steel Mountain
 draft: 
 tags:
   - thm
