@@ -61,7 +61,7 @@ Nmap done: 1 IP address (1 host up) scanned in 105.23 seconds
 
 Interesting, we find a robots.txt file, the hostname, and likely some service running on port 8080 called Jetty. Lets start a gobuster scan and see what we find. Meanwhile, lets check out the webpages themselves. Just going to the IP in the web browser brings up a RIP Bruce Wayne page, asking for donations - funny. I'll check `http://$IP:8080` next.
 
-![[Pasted image 20240702082140.png]]
+![[JenkinsLogin.png]]
 
 So, now we're at a Jenkin's login form. We can look up jenkins's default credentials, brute force this form with hydra or burp suite using names like alfred, bruce, admin, administrator, etc, or we can just handtype a few guesses first. Lets try some combinations of admin:password, admin:admin, etc.
 
@@ -90,8 +90,8 @@ Finished
 
 However, admin:admin worked! And we're greeted with a dashboard page.
 
-![[Pasted image 20240702082745.png]]
+![[JenkinsDashboard.png]]
 
 So, it looks like there's a way to trigger remote code execution in the project folder via "Windows Batch Commands", but I'm not sure if this is the route. There is also a script console that will definitely run RCE on the box. 
 
-![[Pasted image 20240702084223.png]]
+![[JenkinsScriptConsole.png]]
