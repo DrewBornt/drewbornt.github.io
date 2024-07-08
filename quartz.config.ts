@@ -15,7 +15,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "drewscyberops.xyz",
+    baseUrl: "drewbornt.github.io",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
