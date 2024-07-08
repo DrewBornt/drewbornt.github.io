@@ -1,6 +1,6 @@
 ---
 title: Information Gathering
-draft: 
+draft: true
 tags:
 ---
 # About

@@ -1,6 +1,6 @@
 ---
 title: Recovery, Rebuild, and Decrypt
-draft: 
+draft: true
 tags:
 ---
 # About

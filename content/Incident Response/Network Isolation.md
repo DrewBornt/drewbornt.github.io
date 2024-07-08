@@ -1,6 +1,6 @@
 ---
 title: Network Isolation
-draft: 
+draft: true
 tags:
 ---
 # About

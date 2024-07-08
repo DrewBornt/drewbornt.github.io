@@ -1,6 +1,6 @@
 ---
 title: DNS Cleanup
-draft: 
+draft: true
 tags:
 ---
 - todo

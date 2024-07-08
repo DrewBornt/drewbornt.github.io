@@ -1,6 +1,6 @@
 ---
 title: Domain Cleanup
-draft: 
+draft: true
 tags:
 ---
 # About

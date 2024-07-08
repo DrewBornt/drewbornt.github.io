@@ -1,6 +1,6 @@
 ---
 title: Infrastructure Rebuild and Restore
-draft: 
+draft: true
 tags:
 ---
 # About
