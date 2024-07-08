@@ -1,6 +1,6 @@
 ---
 title: Relevant
-draft: 
+draft: true
 tags:
   - thm
   - oscp
