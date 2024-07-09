@@ -142,7 +142,7 @@ Lets open our web browser and just view the webpages. There port 80 and port 496
 Both ports just open up the default IIS landing page. Something I have seen in previous boxes is that a share on the box is linked to the web directory. Lets test if we can get the passwords.txt from the webpage.
 
 And wouldn't you know it...
-![[Pasted image 20240709143914.png]]
+![[RelevantShareExposed.png]]
 
 We get access to the site this way. Who needs gobuster! I tried each web port and with or without the directory before this combination finally worked.
 
@@ -220,6 +220,6 @@ This is specifically exploitable due to having SeImpersonatePrivilege.
 
 Once this is done, simply navigate to `C:\Users\Administrator\Desktop` and grab the flag there.
 
-![[Pasted image 20240709162123.png]]
+![[RelevantCompleted.png]]
 
 Not my proudest achievement seeing the answer. However, I just did not understand why the reverse shells weren't sticking. Even trying to upload an exe and use a webshell to run that exe was failing. Perhaps that would have worked with port 53? Googling how to exploit SeImpersonatePrivilege could have also led me down the path to how to exploit the box. Definitely a learning experience for sure.
