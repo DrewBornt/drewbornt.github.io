@@ -13,7 +13,7 @@ This box does not have a guided set of questions like some other rooms have. As 
 # Initial Scan
 ```
 nmap -Pn -p- -T4 $IP               
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-10 09:06 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.214.227
 Host is up (0.18s latency).
 Not shown: 65533 closed tcp ports (conn-refused)
@@ -27,7 +27,7 @@ Nmap done: 1 IP address (1 host up) scanned in 522.67 seconds
 # Specific Port Scans With Service and OS Enumeration
 ```
 nmap -Pn -p22,80 -sV -sC $IP 
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-10 09:20 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.214.227
 Host is up (0.18s latency).
 

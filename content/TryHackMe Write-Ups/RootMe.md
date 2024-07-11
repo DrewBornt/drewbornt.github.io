@@ -14,7 +14,7 @@ I am also taking the time to fill this out after the fact, unfortunately, I had 
 # Initial Scan
 ```
 nmap -Pn -p- $IP -v
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-11 14:23 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Initiating Parallel DNS resolution of 1 host. at 14:23
 Completed Parallel DNS resolution of 1 host. at 14:23, 0.04s elapsed
 Initiating Connect Scan at 14:23
@@ -28,7 +28,7 @@ Cancelled after the room verified there was only 2 ports.
 ```
 udo nmap -Pn -p22,80 -sV -sC -O $IP
 [sudo] password for kali: 
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-11 14:24 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.229.101
 Host is up (0.18s latency).
 

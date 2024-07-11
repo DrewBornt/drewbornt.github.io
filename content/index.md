@@ -1,10 +1,12 @@
 ---
 title: Homepage
 ---
-
+# Welcome
 Welcome to my public repository for all things IT, Cybersecurity, Incident Response, and Penetration Testing. I will have write-ups for various CTFs, HackTheBox rooms, TryHackMe rooms, and more. Use the explorer on the left-hand side to browse. 
 
 
+
+## Handy Links
 [[Pentesting Strategies]]
 
 

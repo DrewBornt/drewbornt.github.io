@@ -14,7 +14,7 @@ We're told the machine doesn't respond to ICMP requests. This is likely a Window
 ## Initial Scan
 `nmap -Pn -p- $IP`
 ```
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 11:29 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.207.64
 Host is up (0.18s latency).
 Not shown: 65520 closed tcp ports (conn-refused)
@@ -42,7 +42,7 @@ This seems interesting. I believe 5985 has to do with WinRM, so that may be expl
 ## Specific Ports Scan
 ```
 nmap -Pn -p80,135,139,445,3389,5985,8080,47001,49152-49170 -sC -sV $IP 
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 11:54 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.207.64
 Host is up (0.18s latency).
 
@@ -63,10 +63,10 @@ PORT      STATE  SERVICE            VERSION
 |   DNS_Domain_Name: steelmountain
 |   DNS_Computer_Name: steelmountain
 |   Product_Version: 6.3.9600
-|_  System_Time: 2024-07-02T15:56:10+00:00
-|_ssl-date: 2024-07-02T15:56:13+00:00; -1s from scanner time.
+|_
+|_
 | ssl-cert: Subject: commonName=steelmountain
-| Not valid before: 2024-07-01T15:24:25
+|
 |_Not valid after:  2024-12-31T15:24:25
 5985/tcp  open   http               Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
 |_http-title: Not Found
@@ -103,9 +103,6 @@ Host script results:
 |   authentication_level: user
 |   challenge_response: supported
 |_  message_signing: disabled (dangerous, but default)
-| smb2-time: 
-|   date: 2024-07-02T15:56:07
-|_  start_date: 2024-07-02T15:24:14
 | smb2-security-mode: 
 |   3:0:2: 
 |_    Message signing enabled but not required

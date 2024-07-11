@@ -12,7 +12,7 @@ This room starts of suggesting to treat this as an actual pentest, stating there
 # Initial Port Scan
 ```
 map -Pn -sV -p- $IP                                     
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-08 09:47 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.59.249
 Host is up (0.18s latency).
 Not shown: 65527 filtered tcp ports (no-response)
@@ -34,7 +34,7 @@ So there's a lot to look at here. Lets start with enumerating SMB.
 ### Non-credentialed
 ```
 nmap -Pn -sV --script=smb-enum-users,smb-enum-shares -p445 $IP 
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-08 10:02 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.59.249
 Host is up (0.20s latency).
 
@@ -101,7 +101,7 @@ We see that RDP is open so we can test these credentials for RDP access. However
 ### Credentialed
 ```
 nmap -Pn -sV --script=smb-enum-users,smb-enum-shares --script-args 'smbusername=bob,smbpassword=!P@$$W0rD!123' -p445 $IP
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-08 10:33 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.59.249
 Host is up (0.18s latency).
 

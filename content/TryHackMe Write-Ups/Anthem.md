@@ -14,7 +14,7 @@ Starting anthem is exciting. This is one of the last few *easy* Windows boxes li
 ## Full TCP Port Scan
  ```
  nmap -Pn -p- -T4 $IP                                                  
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 13:49 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.61.52
 Host is up (0.18s latency).
 Not shown: 65533 filtered tcp ports (no-response)
@@ -29,16 +29,16 @@ Funny enough, that's all that's open.
 ## Service Scan
 ```
 nmap -Pn -p80,3389 -sC -sV $IP
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-07-02 13:56 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.61.52
 Host is up (0.17s latency).
 
 PORT     STATE SERVICE       VERSION
 80/tcp   open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
 3389/tcp open  ms-wbt-server Microsoft Terminal Services
-|_ssl-date: 2024-07-02T17:57:42+00:00; 0s from scanner time.
+|
 | ssl-cert: Subject: commonName=WIN-LU09299160F
-| Not valid before: 2024-07-01T17:44:15
+|
 |_Not valid after:  2024-12-31T17:44:15
 | rdp-ntlm-info: 
 |   Target_Name: WIN-LU09299160F
@@ -47,7 +47,7 @@ PORT     STATE SERVICE       VERSION
 |   DNS_Domain_Name: WIN-LU09299160F
 |   DNS_Computer_Name: WIN-LU09299160F
 |   Product_Version: 10.0.17763
-|_  System_Time: 2024-07-02T17:56:40+00:00
+|_
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .

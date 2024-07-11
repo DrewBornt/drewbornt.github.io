@@ -13,7 +13,7 @@ These are rough notes I took while exploiting Kenobi. I am not having this submi
 ## Discovered Ports
 ```
 sudo nmap -Pn -p 80,139,111,21,445,22,46229 -O -sV 10.10.210.122
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:11 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.17s latency).
 
@@ -36,7 +36,7 @@ Service Info: Host: KENOBI; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ## Individual Ports
 ```
 nmap -Pn -sV -sC $IP -p 445            
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:01 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.18s latency).
 
@@ -74,7 +74,7 @@ Host script results:
 ##### Enumerating Shares
 ```
 nmap -Pn -sV --script=smb-enum-shares $IP -p 445
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:04 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.18s latency).
 
@@ -116,7 +116,7 @@ Host script results:
 ##### Enumerating OS
 ```
 nmap -Pn -sV --script=smb-os-discovery $IP -p 445
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:13 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.18s latency).
 
@@ -137,7 +137,7 @@ Host script results:
 ## FTP
 ```
 nmap -Pn -sV -script=ftp-anon -p 21 $IP
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:27 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.18s latency).
 
@@ -149,7 +149,7 @@ Service Info: OS: Unix
 ## RPCBIND
 ```
 nmap -Pn -p 111 -sC $IP                
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-06-28 21:40 EDT
+Starting Nmap 7.94SVN ( https://nmap.org )
 Nmap scan report for 10.10.210.122
 Host is up (0.18s latency).
 
