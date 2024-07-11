@@ -1,6 +1,6 @@
 ---
 title: Attacktive Directory
-draft: 
+draft: true
 tags:
 ---
 # Overview
