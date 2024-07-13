@@ -65,9 +65,9 @@ This page is crafted before I've actually taken the OSCP exam. I am curating a f
 - GameZone
 - Skynet
 - Daily bugle
-- Lazy admin
+- [[LazyAdmin]]
 - Tomghost
-- Rootme
+- [[Rootme]]
 - CMesS
 - Ultratech
 - Internal
@@ -123,7 +123,7 @@ This page is crafted before I've actually taken the OSCP exam. I am curating a f
 - Attacktive Directory
 - Corp
 - Attacking Kerberos
-- Wreath Network (A must do)
+- Wreath Network
 
 ### Hackthebox
 - Active
