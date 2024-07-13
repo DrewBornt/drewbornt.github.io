@@ -137,7 +137,7 @@ This page is crafted before I've actually taken the OSCP exam. I am curating a f
 
 ## Vulnhub
 At the time of writing this, I do not know the exact OS's found within these machines. I can update this list later to separate them out into Windows/Linux/Other boxes.
-- Kioptrix: Level 1 (#1): https://www.vulnhub.com/entry/kioptrix-level-1-1,22/
+- [[Kioptrix Level 1]] (#1): https://www.vulnhub.com/entry/kioptrix-level-1-1,22/
 - Kioptrix: Level 1.1 (#2): https://www.vulnhub.com/entry/kioptrix-level-11-2,23/
 - Kioptrix: Level 1.2 (#3): https://www.vulnhub.com/entry/kioptrix-level-12-3,24/
 - Kioptrix: Level 1.3 (#4): https://www.vulnhub.com/entry/kioptrix-level-13-4,25
