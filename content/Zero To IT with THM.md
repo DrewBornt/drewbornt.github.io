@@ -28,7 +28,7 @@ Using these comes down to personal preference. I will show some example of using
 
 # "How" To Take Notes
 
-Everything. I personally use Obsidian. Obsidian uses vaults and you can use these with their paid-for sync service, which I use, or you can use them with OneDrive, which comes with Office, or iCloud if you're a Mac/iPhone user. Even this website is make in Obsidian with use of Quartz.
+Take notes on everything: definitions, processes, command syntax, etc. I personally use Obsidian. Obsidian uses vaults and you can use these with their paid-for sync service, which I use, or you can use them with OneDrive, which comes with Office, or iCloud if you're a Mac/iPhone user. Even this website is make in Obsidian with use of Quartz.
 
 ![[ObsidianCreateAVault.png]]
 
