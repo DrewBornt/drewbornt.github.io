@@ -1,6 +1,6 @@
 ---
-title: Zero To IT Hero
-draft: "true"
+title: Zero To IT with THM
+draft: 
 tags:
 ---
 # Overview
